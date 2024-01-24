@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Display Entries</title>
+    <link rel="stylesheet" href="./display_entries.css" />
+</head>
+
+<body>
+    <div class="entries-container">
+        <h2>Entries</h2>
+        <ul id="entriesList"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve entries from local storage
+            var entries = JSON.parse(localStorage.getItem("entries")) || [];
+
+            // Display entries in a list
+            var entriesList = document.getElementById("entriesList");
+            entries.forEach(function (entry) {
+                var listItem = document.createElement("li");
+                listItem.textContent = "Name: " + entry.username + ", Email: " + entry.emailID;
+                entriesList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+
+</html>

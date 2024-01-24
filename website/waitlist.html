@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WaitList</title>
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/2862b9c025.js" crossorigin="anonymous"></script>
+
+  <!-- animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <link rel="stylesheet" href="./waitlist.css" />
+</head>
+
+<body>
+  <div class="navigation animate__animated animate__bounce">
+    <!-- Navigation code remains unchanged -->
+  </div>
+
+  <div class="waitlist-container">
+    <form action="" class="form" id="waitlistForm">
+      <!-- Added an ID to the form for easier reference -->
+      <h3>Waitlist</h3>
+
+      <div class="flexbox">
+        <div class="left">
+          <div class="form-wrapper">
+            <label for="">Name</label>
+            <input type="text" id="name" value="" class="form-control" required>
+          </div>
+          <div class="form-wrapper">
+            <div class="form-group">
+              <label for="">Email</label>
+            </div>
+            <input type="email" id="email" value="" class="form-control" required>
+          </div>
+
+          <button class="join-now-btn" id="submitBtn">Join Now</button>
+          <!-- Added an ID to the submit button for easier reference -->
+        </div>
+        <div class="right">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvqUKr6Kx2LXbQ0G8s8N6dH93MFnXdKJMFzMOk0a6L4d8k3Vrz4Li-I9fPLGt_OiO0JuM&usqp=CAU"
+            class="image" />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function submitForm(event) {
+        event.preventDefault();
+        var username = document.getElementById("name").value;
+        var emailID = document.getElementById("email").value;
+
+        // Store data in local storage
+        var entry = { username: username, emailID: emailID };
+        var entries = JSON.parse(localStorage.getItem("entries")) || [];
+        entries.push(entry);
+        localStorage.setItem("entries", JSON.stringify(entries));
+
+        $.ajax({
+          url: "result.php",
+          type: "POST",
+          data: { username: username, emailID: emailID },
+          success: function () {
+            window.location.href = "result.html";
+          },
+          error: function (error) {
+            window.location.href = "result.html";
+          },
+        });
+      }
+
+      document.getElementById("submitBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        submitForm(e);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
